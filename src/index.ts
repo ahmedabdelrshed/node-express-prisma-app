@@ -1,17 +1,12 @@
 import express, { Express, Request, Response } from 'express';
 import userRouter from './routes/userRoutes';
 import { PORT } from './secrets';
+import rootRoutes from './routes';
 const app: Express = express();
 
 app.use(express.json());
 
-app.get('/', (req: Request, res: Response) => {
-    res.send('Hello, World!');
-});
-
-
-app.use('/api/users', userRouter);
-
+app.use('/api',rootRoutes)
 
 
 app.listen(PORT, () => {
