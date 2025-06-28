@@ -1,0 +1,22 @@
+# Node dependencies
+node_modules/
+
+# Build output
+dist/
+
+# Env variables
+.env
+
+# Prisma generated client
+prisma/dev.db
+prisma/dev.db-journal
+
+# OS-specific files
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+
+# Optional: VS Code settings
+.vscode/
