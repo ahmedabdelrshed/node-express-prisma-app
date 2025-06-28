@@ -40,7 +40,7 @@ userRouter.put('/:id', async (req, res) => {
 // DELETE user
 userRouter.delete('/:id', async (req, res) => {
     const { id } = req.params;
-   const user =  await prisma.user.delete({
+    const user = await prisma.user.delete({
         where: { id: (id) },
     });
     res.status(204).json(user);
