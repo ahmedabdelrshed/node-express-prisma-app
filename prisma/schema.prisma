@@ -14,26 +14,43 @@ datasource db {
 }
 
 enum Role {
-  USER 
+  USER
   ADMIN
 }
+
 model User {
-  id    Int    @id @default(autoincrement())
-  name  String
-  email String @unique
-  password String
-  role Role @default(USER)
+  id        Int      @id @default(autoincrement())
+  name      String
+  email     String   @unique
+  password  String
+  role      Role     @default(USER)
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
-  posts Post[]
-  @@map("users") 
+  cart      Cart?
+  @@map("Users")
 }
-model Post {
-  id        String      @id @default(uuid())
-  title     String
-  content   String?
-  authorId  Int
-  author    User     @relation(fields: [authorId], references: [id])
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+
+model Cart {
+  id       String     @id @default(uuid())
+  userId   Int        @unique
+  user     User       @relation(fields: [userId], references: [id], onDelete: Cascade)
+  CartItem CartItem[]
+  @@map("Carts")
+}
+
+model Product {
+  id       String     @id @default(uuid())
+  name     String
+  price    Float
+  CartItem CartItem[]
+}
+
+model CartItem {
+  id        String @id @default(uuid())
+  cartId    String
+  productId String
+  quantity  Int
+  cart    Cart    @relation(fields: [cartId], references: [id])
+  product Product @relation(fields: [productId], references: [id])
+  @@unique([cartId, productId]) 
 }
